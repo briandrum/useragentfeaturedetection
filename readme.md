@@ -23,18 +23,16 @@ In the XSL template if the value of `data/params/feature-detection` is `0` a scr
 
 1. Upload the `useragentfeaturedetection` folder in this archive to your Symphony `extensions` folder
 2. Enable it by selecting “User Agent Feature Detection” on the System » Extensions page, choose “Enable/Install” from the “With Selected…” menu, then click “Apply”
-3. Verify that `feature-detection` and `feature-maxwidth` params are included in your page XML
+3. Verify that `feature-detection` and `feature-maxwidth` params are being included in your page XML
 
 ## Usage
 
 1. Modify your XSL template to include the `<xsl:if test="data/params/feature-detection = 0">` portion of `master.xsl` file in this archive
-2. Use the information contained in `/data/params/feature-`’s to customize your layout or content. For example, you can use the value of `/data/params/feature-maxwidth` in your [JIT image](http://symphony-cms.com/learn/concepts/view/jit-image-manipulation/) source attribute: `<img src="{$root}/image/4/{data/params/feature-maxwidth}/0/1/path/to/image.jpg" />`
+2. Use the information contained in `/data/params/feature-`’s to customize your layout or content. For example, you can use the value of `/data/params/feature-maxwidth` in your [JIT image](http://symphony-cms.com/learn/concepts/view/jit-image-manipulation/) source attribute to create [responsive images](http://unstoppablerobotninja.com/entry/responsive-images/): `<img src="{$root}/image/4/{data/params/feature-maxwidth}/0/1/path/to/image.jpg" />`
 
 ## Notes
 
 With this release only the maximum width of the device is returned. Future versions may add additional feature detection.
-
-A fallback value (default `480`) exists for user agents without JavaScript or those with JavaScript that do not accept cookies. Edit `extension.driver.php` to suit your site’s needs.
 
 ## Changelog
 

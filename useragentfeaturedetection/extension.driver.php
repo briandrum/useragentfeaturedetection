@@ -16,14 +16,53 @@
       );
     }
 
+    public function install() {
+      Symphony::Configuration()->set('maxwidth', 480, 'feature');
+      Administration::instance()->saveConfig();
+    }
+
+    public function uninstall() {
+      Symphony::Configuration()->remove('feature');
+      Administration::instance()->saveConfig();
+    }
+
     public function getSubscribedDelegates(){
       return array(
+        array(
+          'page'     => '/system/preferences/',
+          'delegate' => 'AddCustomPreferenceFieldsets',
+          'callback' => 'appendPreferences'
+        ),
+        array(
+          'page'     => '/system/preferences/',
+          'delegate' => 'Save',
+          'callback' => 'savePreferences'
+        ),
         array(
           'page'     => '/frontend/',
           'delegate' => 'FrontendParamsResolve',
           'callback' => 'addParam'
         )
       );
+    }
+
+    public function appendPreferences($context) {
+      $fieldset = new XMLElement('fieldset');
+      $fieldset->setAttribute('class', 'settings');
+      $fieldset->appendChild(new XMLElement('legend', __('User Agent Feature Detection')));
+
+      $current = Symphony::Configuration()->get('maxwidth', 'feature');
+      $input = Widget::Input('settings[feature][maxwidth]', $current, 'number',
+        array(
+          'min'   => 0,
+          'step'  => 10
+        ));
+      $label = Widget::Label('Default Maximum Width', $input);
+      $fieldset->appendChild($label);
+
+      $fieldset->appendChild(new XMLElement('p', __('For user agents without JavaScript or those with JavaScript that do not accept cookies.'), array('class' => 'help')));
+
+      $context['wrapper']->appendChild($fieldset);
     }
 
     public function addParam($context) {
