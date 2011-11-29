@@ -3,12 +3,15 @@
 
 <xsl:template name="user-agent-feature-detection">
   <xsl:if test="data/params/feature-detection = 0">
-    <script>
-      // Set cookies
-      document.cookie='feature_detection=1, ' +
-
+    <xsl:if test="data/params/feature-maxwidth">
+      <script>
         // Check maximum width of device
-        'feature_maxwidth=' + Math.round(Math.max(screen.width,screen.height) * ('devicePixelRatio' in window ? devicePixelRatio : 1)) + '; path=/';
+        document.cookie = 'feature_maxwidth=' + Math.round(Math.max(screen.width,screen.height) * ('devicePixelRatio' in window ? devicePixelRatio : 1)) + '; path=/';
+      </script>
+    </xsl:if>
+    <script>
+      // Prevent page from reloading again
+      document.cookie = 'feature_detection=1; path=/';
 
       // If the feature detection cookie has been successfully set, reload the page
       if (document.cookie.indexOf('feature_detection=1') !=-1) location.reload(true);

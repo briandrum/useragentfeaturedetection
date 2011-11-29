@@ -11,13 +11,14 @@
         ),
         'description'  => 'The User Agent Feature Detection extension makes information about user agent features available in the param pool for the purposes of responsive web design.',
         'name'         => 'User Agent Feature Detection',
-        'release-date' => '2011-11-28',
-        'version'      => '0.1'
+        'release-date' => '2011-11-29',
+        'version'      => '0.2'
       );
     }
 
     public function install() {
-      Symphony::Configuration()->set('maxwidth', 480, 'feature');
+      Symphony::Configuration()->set('maxwidth_enabled', 'true', 'feature');
+      Symphony::Configuration()->set('maxwidth_value', 480, 'feature');
       Administration::instance()->saveConfig();
     }
 
@@ -47,22 +48,33 @@
     }
 
     public function appendPreferences($context) {
-      $fieldset = new XMLElement('fieldset');
-      $fieldset->setAttribute('class', 'settings');
-      $fieldset->appendChild(new XMLElement('legend', __('User Agent Feature Detection')));
+      $uafd_fieldset = new XMLElement('fieldset');
+      $uafd_fieldset->setAttribute('class', 'settings');
+      $uafd_fieldset->appendChild(new XMLElement('legend', __('User Agent Feature Detection')));
+      $context['wrapper']->appendChild($uafd_fieldset);
 
-      $current = Symphony::Configuration()->get('maxwidth', 'feature');
-      $input = Widget::Input('settings[feature][maxwidth]', $current, 'number',
+      $maxwidth_div = new XMLElement('div');
+      $maxwidth_div->setAttribute('class', 'group');
+      $uafd_fieldset->appendChild($maxwidth_div);
+
+      $maxwidth_enabled_current = Symphony::Configuration()->get('maxwidth_enabled', 'feature');
+      $maxwidth_enabled_select = Widget::Select('settings[feature][maxwidth_enabled]',
+        array(
+          array('true', ('true' == $maxwidth_enabled_current) ? true : false, "Enabled"),
+          array('false', ('false' == $maxwidth_enabled_current) ? true : false, "Disabled")
+        )
+      );
+      $maxwidth_enabled_label = Widget::Label('Detect Maximum Device Width', $maxwidth_enabled_select);
+      $maxwidth_div->appendChild($maxwidth_enabled_label);
+
+      $maxwidth_value_current = Symphony::Configuration()->get('maxwidth_value', 'feature');
+      $maxwidth_value_input = Widget::Input('settings[feature][maxwidth_value]', $maxwidth_value_current, 'number',
         array(
           'min'   => 0,
           'step'  => 10
         ));
-      $label = Widget::Label('Default Maximum Width', $input);
-      $fieldset->appendChild($label);
-
-      $fieldset->appendChild(new XMLElement('p', __('For user agents without JavaScript or those with JavaScript that do not accept cookies.'), array('class' => 'help')));
-
-      $context['wrapper']->appendChild($fieldset);
+      $maxwidth_value_label = Widget::Label('Default for user agents that cannot create cookies', $maxwidth_value_input);
+      $maxwidth_div->appendChild($maxwidth_value_label);
     }
 
     public function addParam($context) {
@@ -72,9 +84,11 @@
       $context['params']['feature-detection'] = $feature_detection;
 
       // maxwidth cookie
-      $feature_maxwidth_fallback = 480;
-      $feature_maxwidth = !empty($_COOKIE['feature_maxwidth']) ? $_COOKIE['feature_maxwidth'] : $fallback;
-      $context['params']['feature-maxwidth'] = $feature_maxwidth;
+      if (Symphony::Configuration()->get('maxwidth_enabled', 'feature') === 'true') {
+        $feature_maxwidth_fallback = Symphony::Configuration()->get('maxwidth_value', 'feature');
+        $feature_maxwidth = !empty($_COOKIE['feature_maxwidth']) ? $_COOKIE['feature_maxwidth'] : $feature_maxwidth_fallback;
+        $context['params']['feature-maxwidth'] = $feature_maxwidth;
+      }
 
     }
 
