@@ -11,19 +11,19 @@
         ),
         'description'  => 'The User Agent Feature Detection extension makes information about user agent features available in the param pool for the purposes of responsive web design.',
         'name'         => 'User Agent Feature Detection',
-        'release-date' => '2011-11-29',
-        'version'      => '0.2'
+        'release-date' => '2011-12-01',
+        'version'      => '0.3'
       );
     }
 
     public function install() {
-      Symphony::Configuration()->set('maxwidth_enabled', 'true', 'feature');
-      Symphony::Configuration()->set('maxwidth_value', 480, 'feature');
+      Symphony::Configuration()->set('screen_detection_enabled', 'true', 'user_agent_feature_detection');
+      Symphony::Configuration()->set('screen_default', 480, 'user_agent_feature_detection');
       Administration::instance()->saveConfig();
     }
 
     public function uninstall() {
-      Symphony::Configuration()->remove('feature');
+      Symphony::Configuration()->remove('user_agent_feature_detection');
       Administration::instance()->saveConfig();
     }
 
@@ -53,41 +53,58 @@
       $uafd_fieldset->appendChild(new XMLElement('legend', __('User Agent Feature Detection')));
       $context['wrapper']->appendChild($uafd_fieldset);
 
-      $maxwidth_div = new XMLElement('div');
-      $maxwidth_div->setAttribute('class', 'group');
-      $uafd_fieldset->appendChild($maxwidth_div);
+      $screen_detection_div = new XMLElement('div');
+      $screen_detection_div->setAttribute('class', 'group');
+      $uafd_fieldset->appendChild($screen_detection_div);
 
-      $maxwidth_enabled_current = Symphony::Configuration()->get('maxwidth_enabled', 'feature');
-      $maxwidth_enabled_select = Widget::Select('settings[feature][maxwidth_enabled]',
+      $screen_detection_enabled_current = Symphony::Configuration()->get('screen_detection_enabled', 'user_agent_feature_detection');
+      $screen_detection_enabled_select = Widget::Select('settings[feature][screen_detection_enabled]',
         array(
-          array('true', ('true' == $maxwidth_enabled_current) ? true : false, "Enabled"),
-          array('false', ('false' == $maxwidth_enabled_current) ? true : false, "Disabled")
+          array('true', ('true' == $screen_detection_enabled_current) ? true : false, "Enabled"),
+          array('false', ('false' == $screen_detection_enabled_current) ? true : false, "Disabled")
         )
       );
-      $maxwidth_enabled_label = Widget::Label('Detect Maximum Device Width', $maxwidth_enabled_select);
-      $maxwidth_div->appendChild($maxwidth_enabled_label);
+      $screen_detection_enabled_label = Widget::Label('Screen Detection', $screen_detection_enabled_select);
+      $screen_detection_div->appendChild($screen_detection_enabled_label);
 
-      $maxwidth_value_current = Symphony::Configuration()->get('maxwidth_value', 'feature');
-      $maxwidth_value_input = Widget::Input('settings[feature][maxwidth_value]', $maxwidth_value_current, 'number',
+      $screen_default_current = Symphony::Configuration()->get('screen_default', 'user_agent_feature_detection');
+      $screen_default_input = Widget::Input('settings[feature][screen_default]', $screen_default_current, 'number',
         array(
           'min'   => 0,
           'step'  => 10
         ));
-      $maxwidth_value_label = Widget::Label('Default for user agents that cannot create cookies', $maxwidth_value_input);
-      $maxwidth_div->appendChild($maxwidth_value_label);
+      $screen_default_label = Widget::Label('Default Screen Size (px) ', $screen_default_input);
+      $screen_detection_div->appendChild($screen_default_label);
+
+      $help = new XMLElement('p', __('Default values are for user agents without JavaScript or with cookies disabled.'));
+      $help->setAttribute('class', 'help');
+      $uafd_fieldset->appendChild($help);
     }
 
     public function addParam($context) {
 
-      // detection cookie
+      // feature_detection cookie
       $feature_detection  = !empty($_COOKIE['feature_detection']) ? $_COOKIE['feature_detection'] : 0;
       $context['params']['feature-detection'] = $feature_detection;
 
-      // maxwidth cookie
-      if (Symphony::Configuration()->get('maxwidth_enabled', 'feature') === 'true') {
-        $feature_maxwidth_fallback = Symphony::Configuration()->get('maxwidth_value', 'feature');
-        $feature_maxwidth = !empty($_COOKIE['feature_maxwidth']) ? $_COOKIE['feature_maxwidth'] : $feature_maxwidth_fallback;
-        $context['params']['feature-maxwidth'] = $feature_maxwidth;
+      // screen_max cookie
+      if (Symphony::Configuration()->get('screen_detection_enabled', 'user_agent_feature_detection') === 'true') {
+        $feature_screen_max_fallback = Symphony::Configuration()->get('screen_default', 'user_agent_feature_detection');
+        $feature_screen_max = !empty($_COOKIE['feature_screen_max']) ? $_COOKIE['feature_screen_max'] : $feature_screen_max_fallback;
+        $context['params']['feature-screen-max'] = $feature_screen_max;
+      }
+
+      // screen_min cookie
+      if (Symphony::Configuration()->get('screen_detection_enabled', 'user_agent_feature_detection') === 'true') {
+        $feature_screen_min_fallback = Symphony::Configuration()->get('screen_default', 'user_agent_feature_detection');
+        $feature_screen_min = !empty($_COOKIE['feature_screen_min']) ? $_COOKIE['feature_screen_min'] : $feature_screen_min_fallback;
+        $context['params']['feature-screen-min'] = $feature_screen_min;
+      }
+
+      // screen_orientation cookie
+      if (Symphony::Configuration()->get('screen_detection_enabled', 'user_agent_feature_detection') === 'true') {
+        $feature_screen_orientation = !empty($_COOKIE['feature_screen_orientation']) ? $_COOKIE['feature_screen_orientation'] : 'fallback';
+        $context['params']['feature-screen-orientation'] = $feature_screen_orientation;
       }
 
     }

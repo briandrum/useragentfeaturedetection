@@ -3,17 +3,29 @@
 
 <xsl:template name="user-agent-feature-detection">
   <xsl:if test="data/params/feature-detection = 0">
-    <xsl:if test="data/params/feature-maxwidth">
+    <xsl:if test="data/params/feature-screen-max">
       <script>
-        // Check maximum width of device
-        document.cookie = 'feature_maxwidth=' + Math.round(Math.max(screen.width,screen.height) * ('devicePixelRatio' in window ? devicePixelRatio : 1)) + '; path=/';
+        <!-- Check max of screen -->
+        document.cookie = 'feature_screen_max=' + Math.round(Math.max(screen.height,screen.width) * ('devicePixelRatio' in window ? devicePixelRatio : 1)) + '; path=/';
+      </script>
+    </xsl:if>
+    <xsl:if test="data/params/feature-screen-min">
+      <script>
+        <!-- Check min of screen -->
+        document.cookie = 'feature_screen_min=' + Math.round(Math.min(screen.height,screen.width) * ('devicePixelRatio' in window ? devicePixelRatio : 1)) + '; path=/';
+      </script>
+    </xsl:if>
+    <xsl:if test="data/params/feature-screen-orientation">
+      <script>
+        <!-- Check orientation of screen -->
+        document.cookie = 'feature_screen_orientation=' + (screen.height === screen.width ? 'square' : (screen.height &gt; screen.width ? 'landscape' : 'portrait')) + '; path=/';
       </script>
     </xsl:if>
     <script>
-      // Prevent page from reloading again
+      <!-- Prevent page from reloading again -->
       document.cookie = 'feature_detection=1; path=/';
 
-      // If the feature detection cookie has been successfully set, reload the page
+      <!-- If the feature detection cookie has been successfully set, reload the page -->
       if (document.cookie.indexOf('feature_detection=1') !=-1) location.reload(true);
     </script>
   </xsl:if>
