@@ -1,1 +1,58 @@
-My GitHub Page
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>User Agent Feature Detection · Extension for Symphony CMS</title>
+</head>
+<body>
+  <h1>User Agent Feature Detection</h1>
+  <ul>
+    <li>Version: 0.2</li>
+    <li>Author: Brian Drum</li>
+    <li>Release Date: 29 November 2011</li>
+    <li>Requirements: Symphony 2.2.5</li>
+  </ul>
+  <h2>Description</h2>
+  <p>The User Agent Feature Detection extension makes information about user agent features available in the param pool for the purposes of responsive web design.</p>
+  <h2>How it works</h2>
+  <p>On page load the extension checks for the presence of a cookie called <code>feature_detection</code>. If none is found (as on the first page request) the value of <code>data/params/feature-detection</code> is set to <code>0</code>. In the XSL template if the value of <code>data/params/feature-detection</code> is <code>0</code> a script block is written to the head of the page which creates a cookie called <code>feature_detection</code> with a value of <code>1</code> to prevent the script block being inserted in subsequent pages during this session.</p>
+  <p>For each feature test that has been enabled on System » Preferences, a unique param node is created. In the XSL template if a test’s param node is present a corresponding JavaScript block is written to the page containing a test that creates a cookie for that feature. On subsequent page loads the extension checks for the presence of those cookies and adds the values to the param pool. After all test have been run the page is immediately reloaded.</p>
+  <h2>Installation</h2>
+  <ol>
+    <li>Upload the <code>useragentfeaturedetection</code> folder in this archive to your Symphony <code>extensions</code> folder</li>
+    <li>Enable it by selecting “User Agent Feature Detection” on the System » Extensions page, choose “Enable/Install” from the “With Selected…” menu, then click “Apply”</li>
+    <li>On System » Preferences enable the tests you want to use and verify that <code>feature-detection</code> and any other test params are being included in your page XML</li>
+    <li>Add <code>user-agent-feature-detection.xsl</code> to Blueprints » Components » Utilities</li>
+  </ol>
+  <h2>Usage</h2>
+  <ol>
+    <li>Import the feature detection utility it to your stylesheet: <code>&lt;xsl:import href="../utilities/user-agent-feature-detection.xsl" /&gt;</code></li>
+    <li>Call the feature detection utility early in the <code>&lt;head&gt;</code> of your HTML: <code>&lt;xsl:call-template name="user-agent-feature-detection" /&gt;</code></li>
+    <li>Use the information contained in <code>/data/params/feature-…</code> to customize your layout or content. For example, you can use the value of <code>/data/params/feature-maxwidth</code> in your <a href="http://symphony-cms.com/learn/concepts/view/jit-image-manipulation/">JIT image</a> source attribute to create <a href="http://unstoppablerobotninja.com/entry/responsive-images/">responsive images</a>: <code>&lt;img src="{$root}/image/4/{data/params/feature-maxwidth}/0/1/path/to/image.jpg" /&gt;</code></li>
+  </ol>
+  <h2>Notes</h2>
+  <p>With this release only the maximum width of the device is returned. Future versions may add additional feature detection.</p>
+  <h2>Changelog</h2>
+  <ul>
+    <li>0.2, 29 November 2011
+      <ul>
+        <li>Add preference for default maxwidth</li>
+        <li>Move feature detection JavaScript to utility</li>
+        <li>Add ability to enable or disable individual tests</li>
+      </ul>
+    </li>
+    <li>0.1, 28 November 2011
+      <ul>
+        <li>Initial release</li>
+      </ul>
+    </li>
+  </ul>
+  <h2>Credits</h2>
+  <ul>
+    <li>Ethan Marcotte, for <a href="http://www.alistapart.com/articles/responsive-web-design/">Responsive Web Design</a></li>
+    <li>Luke Wroblewski, for <a href="http://www.lukew.com/ff/entry.asp?1392">RESS: Responsive Design + Server Side Components</a></li>
+    <li>Matt Wilcox, for <a href="http://adaptive-images.com/">Adaptive Images in HTML</a></li>
+    <li>Matt Stauffer, for <a href="https://github.com/jiolasa/Simple-RESS">Simple-RESS</a></li>
+  </ul>
+</body>
+</html>
