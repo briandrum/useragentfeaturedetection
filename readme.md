@@ -35,7 +35,7 @@ With this release the screen dimensions (`integer`, in pixels) and orientation (
 ## Changelog
 
 * 0.3, 1 December 2011
-  * Chenged `feature-maxwidth` to `feature-screen-max`
+  * Changed `feature-maxwidth` to `feature-screen-max`
 	* Added `feature-screen-min`
 	* Added `feature-screen-orientation`
 * 0.2, 29 November 2011
