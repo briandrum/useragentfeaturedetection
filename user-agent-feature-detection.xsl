@@ -18,7 +18,7 @@
     <xsl:if test="data/params/feature-screen-orientation">
       <script>
         <!-- Check orientation of screen -->
-        document.cookie = 'feature_screen_orientation=' + (screen.height === screen.width ? 'square' : (screen.height &gt; screen.width ? 'landscape' : 'portrait')) + '; path=/';
+        document.cookie = 'feature_screen_orientation=' + (window.orientation === 0 ? 'portrait' : (window.orientation === 90 ? 'landscape' : 'unknown')) + '; path=/';
       </script>
     </xsl:if>
     <script>

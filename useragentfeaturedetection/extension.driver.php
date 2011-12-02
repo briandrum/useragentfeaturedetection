@@ -89,21 +89,21 @@
 
       // screen_max cookie
       if (Symphony::Configuration()->get('screen_detection_enabled', 'user_agent_feature_detection') === 'true') {
-        $feature_screen_max_fallback = Symphony::Configuration()->get('screen_default', 'user_agent_feature_detection');
-        $feature_screen_max = !empty($_COOKIE['feature_screen_max']) ? $_COOKIE['feature_screen_max'] : $feature_screen_max_fallback;
+        $feature_screen_max_default = Symphony::Configuration()->get('screen_default', 'user_agent_feature_detection');
+        $feature_screen_max = !empty($_COOKIE['feature_screen_max']) ? $_COOKIE['feature_screen_max'] : $feature_screen_max_default;
         $context['params']['feature-screen-max'] = $feature_screen_max;
       }
 
       // screen_min cookie
       if (Symphony::Configuration()->get('screen_detection_enabled', 'user_agent_feature_detection') === 'true') {
-        $feature_screen_min_fallback = Symphony::Configuration()->get('screen_default', 'user_agent_feature_detection');
-        $feature_screen_min = !empty($_COOKIE['feature_screen_min']) ? $_COOKIE['feature_screen_min'] : $feature_screen_min_fallback;
+        $feature_screen_min_default = Symphony::Configuration()->get('screen_default', 'user_agent_feature_detection');
+        $feature_screen_min = !empty($_COOKIE['feature_screen_min']) ? $_COOKIE['feature_screen_min'] : $feature_screen_min_default;
         $context['params']['feature-screen-min'] = $feature_screen_min;
       }
 
       // screen_orientation cookie
       if (Symphony::Configuration()->get('screen_detection_enabled', 'user_agent_feature_detection') === 'true') {
-        $feature_screen_orientation = !empty($_COOKIE['feature_screen_orientation']) ? $_COOKIE['feature_screen_orientation'] : 'fallback';
+        $feature_screen_orientation = !empty($_COOKIE['feature_screen_orientation']) ? $_COOKIE['feature_screen_orientation'] : 'unknown';
         $context['params']['feature-screen-orientation'] = $feature_screen_orientation;
       }
 
