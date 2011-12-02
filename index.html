@@ -7,9 +7,9 @@
 <body>
   <h1>User Agent Feature Detection</h1>
   <ul>
-    <li>Version: 0.2</li>
+    <li>Version: 0.3</li>
     <li>Author: Brian Drum</li>
-    <li>Release Date: 29 November 2011</li>
+    <li>Release Date: 1 December 2011</li>
     <li>Requirements: Symphony 2.2.5</li>
   </ul>
   <h2>Description</h2>
@@ -28,12 +28,19 @@
   <ol>
     <li>Import the feature detection utility it to your stylesheet: <code>&lt;xsl:import href="../utilities/user-agent-feature-detection.xsl" /&gt;</code></li>
     <li>Call the feature detection utility early in the <code>&lt;head&gt;</code> of your HTML: <code>&lt;xsl:call-template name="user-agent-feature-detection" /&gt;</code></li>
-    <li>Use the information contained in <code>/data/params/feature-…</code> to customize your layout or content. For example, you can use the value of <code>/data/params/feature-maxwidth</code> in your <a href="http://symphony-cms.com/learn/concepts/view/jit-image-manipulation/">JIT image</a> source attribute to create <a href="http://unstoppablerobotninja.com/entry/responsive-images/">responsive images</a>: <code>&lt;img src="{$root}/image/4/{data/params/feature-maxwidth}/0/1/path/to/image.jpg" /&gt;</code></li>
+    <li>Use the information contained in <code>/data/params/feature-…</code> to customize your layout or content. For example, you can use the value of <code>/data/params/feature-screen-max</code> in your <a href="http://symphony-cms.com/learn/concepts/view/jit-image-manipulation/">JIT image</a> source attribute to create <a href="http://unstoppablerobotninja.com/entry/responsive-images/">responsive images</a>: <code>&lt;img src="{$root}/image/4/{data/params/feature-screen-max}/0/1/path/to/image.jpg" /&gt;</code></li>
   </ol>
   <h2>Notes</h2>
-  <p>With this release only the maximum width of the device is returned. Future versions may add additional feature detection.</p>
+  <p>With this release the screen dimensions (<code>integer</code>, in pixels) and orientation (<code>landscape</code>, <code>portrait</code>, or <code>square</code>) of the device is returned. Future versions may add additional feature detection.</p>
   <h2>Changelog</h2>
   <ul>
+    <li>0.3, 1 December 2011
+      <ul>
+        <li>Changed <code>feature-maxwidth</code> to <code>feature-screen-max</code></li>
+        <li>Added <code>feature-screen-min</code></li>
+        <li>Added <code>feature-screen-orientation</code></li>
+      </ul>
+    </li>
     <li>0.2, 29 November 2011
       <ul>
         <li>Add preference for default maxwidth</li>
