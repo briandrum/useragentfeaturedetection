@@ -101,6 +101,13 @@
         $context['params']['feature-screen-min'] = $feature_screen_min;
       }
 
+      // breakpoint cookie
+      if (Symphony::Configuration()->get('screen_detection_enabled', 'user_agent_feature_detection') === 'true') {
+        $feature_breakpoint_default = Symphony::Configuration()->get('screen_default', 'user_agent_feature_detection');
+        $feature_breakpoint = !empty($_COOKIE['feature_breakpoint']) ? $_COOKIE['feature_breakpoint'] : $feature_breakpoint_default;
+        $context['params']['feature-breakpoint'] = $feature_breakpoint;
+      }
+
       // screen_orientation cookie
       if (Symphony::Configuration()->get('screen_detection_enabled', 'user_agent_feature_detection') === 'true') {
         $feature_screen_orientation = !empty($_COOKIE['feature_screen_orientation']) ? $_COOKIE['feature_screen_orientation'] : 'unknown';

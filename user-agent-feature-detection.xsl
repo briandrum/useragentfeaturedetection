@@ -15,6 +15,17 @@
         document.cookie = 'feature_screen_min=' + Math.round(Math.min(screen.height,screen.width) * ('devicePixelRatio' in window ? devicePixelRatio : 1)) + '; path=/';
       </script>
     </xsl:if>
+    <xsl:if test="data/params/feature-breakpoint">
+      <script>
+        <!-- Set breakpoint for JIT images -->
+        var b = function() {
+          var a = [240, 320, 480, 600, 768, 1024, 1200, 1440, 1600, 2400, 3200],
+              s = Math.round(Math.max(screen.height,screen.width) * ('devicePixelRatio' in window ? devicePixelRatio : 1));
+          for (i in a) if (a[i] >= s) return a[i]; return a.pop();
+        }();
+        document.cookie = 'feature_breakpoint=' + b + '; path=/';
+      </script>
+    </xsl:if>
     <xsl:if test="data/params/feature-screen-orientation">
       <script>
         <!-- Check orientation of screen -->
