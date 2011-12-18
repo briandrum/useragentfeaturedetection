@@ -11,8 +11,8 @@
         ),
         'description'  => 'The User Agent Feature Detection extension makes information about user agent features available in the param pool for the purposes of responsive web design.',
         'name'         => 'User Agent Feature Detection',
-        'release-date' => '2011-12-01',
-        'version'      => '0.3'
+        'release-date' => '2011-12-18',
+        'version'      => '0.4'
       );
     }
 
@@ -87,28 +87,28 @@
       $feature_detection  = !empty($_COOKIE['feature_detection']) ? $_COOKIE['feature_detection'] : 0;
       $context['params']['feature-detection'] = $feature_detection;
 
-      // screen_max cookie
+      // feature_screen_max cookie
       if (Symphony::Configuration()->get('screen_detection_enabled', 'user_agent_feature_detection') === 'true') {
         $feature_screen_max_default = Symphony::Configuration()->get('screen_default', 'user_agent_feature_detection');
         $feature_screen_max = !empty($_COOKIE['feature_screen_max']) ? $_COOKIE['feature_screen_max'] : $feature_screen_max_default;
         $context['params']['feature-screen-max'] = $feature_screen_max;
       }
 
-      // screen_min cookie
+      // feature_screen_min cookie
       if (Symphony::Configuration()->get('screen_detection_enabled', 'user_agent_feature_detection') === 'true') {
         $feature_screen_min_default = Symphony::Configuration()->get('screen_default', 'user_agent_feature_detection');
         $feature_screen_min = !empty($_COOKIE['feature_screen_min']) ? $_COOKIE['feature_screen_min'] : $feature_screen_min_default;
         $context['params']['feature-screen-min'] = $feature_screen_min;
       }
 
-      // breakpoint cookie
+      // feature_breakpoint cookie
       if (Symphony::Configuration()->get('screen_detection_enabled', 'user_agent_feature_detection') === 'true') {
         $feature_breakpoint_default = Symphony::Configuration()->get('screen_default', 'user_agent_feature_detection');
         $feature_breakpoint = !empty($_COOKIE['feature_breakpoint']) ? $_COOKIE['feature_breakpoint'] : $feature_breakpoint_default;
         $context['params']['feature-breakpoint'] = $feature_breakpoint;
       }
 
-      // screen_orientation cookie
+      // feature_screen_orientation cookie
       if (Symphony::Configuration()->get('screen_detection_enabled', 'user_agent_feature_detection') === 'true') {
         $feature_screen_orientation = !empty($_COOKIE['feature_screen_orientation']) ? $_COOKIE['feature_screen_orientation'] : 'unknown';
         $context['params']['feature-screen-orientation'] = $feature_screen_orientation;

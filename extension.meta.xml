@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension id="user_agent_feature_detection" status="experimental" xmlns="http://symphony-cms.com/schemas/extension/1.0">
+  <name>User Agent Feature Detection</name>
+  <description lang="en">Add user agent feature information to the param pool.</description>
+  <repo type="github">https://github.com/briandrum/user_agent_feature_detection</repo>
+  <url type="discuss">http://symphony-cms.com/discuss/thread/81069/</url>
+  <url type="homepage">http://briandrum.github.com/user_agent_feature_detection</url>
+  <url type="issues">https://github.com/briandrum/user_agent_feature_detection/issues</url>
+  <types>
+    <type>Other</type>
+  </types>
+  <authors>
+    <author>
+      <name github="briandrum" symphony="briandrum" twitter="briandrum">Brian Drum</name>
+      <email>brian@briandrum.net</email>
+      <website>http://briandrum.net/</website>
+    </author>
+  </authors>
+  <releases>
+    <release version="0.4" date="2011-12-18">
+      * Added `feature-bandwidth`
+    </release>
+    <release version="0.3" date="2011-12-01">
+      * Changed `feature-maxwidth` to `feature-screen-max`
+      * Added `feature-screen-min`
+      * Added `feature-screen-orientation`
+    </release>
+    <release version="0.2" date="2011-11-29">
+      * Add preference for default maxwidth
+      * Move feature detection JavaScript to utility
+      * Add ability to enable or disable individual tests
+    </release>
+    <release version="0.1" date="2011-11-28" min="2.2.5">
+      * Initial release
+    </release>
+  </releases>
+</extension>
