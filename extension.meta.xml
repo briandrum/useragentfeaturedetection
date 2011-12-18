@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension id="user_agent_feature_detection" status="experimental" xmlns="http://symphony-cms.com/schemas/extension/1.0">
+<extension id="user_agent_feature_detection" status="released" xmlns="http://symphony-cms.com/schemas/extension/1.0">
   <name>User Agent Feature Detection</name>
   <description lang="en">Add user agent feature information to the param pool.</description>
   <repo type="github">https://github.com/briandrum/user_agent_feature_detection</repo>
