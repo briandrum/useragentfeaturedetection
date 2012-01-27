@@ -5,9 +5,9 @@
     public function about() {
       return array(
         'author'       => array(
-          'email'    => 'brian@briandrum.net',
-          'name'     => 'Brian Drum',
-          'website'  => 'http://briandrum.net'
+          'email'   => 'brian@briandrum.net',
+          'name'    => 'Brian Drum',
+          'website' => 'http://briandrum.net'
         ),
         'description'  => 'The User Agent Feature Detection extension makes information about user agent features available in the param pool for the purposes of responsive web design.',
         'name'         => 'User Agent Feature Detection',
