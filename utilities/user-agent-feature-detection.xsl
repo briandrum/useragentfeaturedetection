@@ -17,9 +17,9 @@
     </xsl:if>
     <xsl:if test="data/params/feature-breakpoint">
       <script>
-        <!-- Set breakpoint for JIT images -->
+        <!-- Set breakpoints for JIT images -->
         var b = function() {
-          var a = [240, 320, 480, 600, 768, 1024, 1200, 1440, 1600, 2400, 3200],
+          var a = [480, 600, 768, 1024, 1200],
               s = Math.round(Math.max(screen.height,screen.width) * ('devicePixelRatio' in window ? devicePixelRatio : 1));
           for (i in a) if (a[i] >= s) return a[i]; return a.pop();
         }();

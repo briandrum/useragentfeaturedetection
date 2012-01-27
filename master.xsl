@@ -16,11 +16,16 @@
       </style>
     </head>
     <body>
-      <h1>
-        maxwidth = “<xsl:value-of select="data/params/feature-maxwidth" />”
-      </h1>
+      <h1>Values</h1>
+      <ul>
+        <li>data/params/feature-detection = “<xsl:value-of select="data/params/feature-detection" />”</li>
+        <li>data/params/feature-screen-max = “<xsl:value-of select="data/params/feature-screen-max" />”</li>
+        <li>data/params/feature-screen-min = “<xsl:value-of select="data/params/feature-screen-min" />”</li>
+        <li>data/params/feature-breakpoint = “<xsl:value-of select="data/params/feature-breakpoint" />”</li>
+        <li>data/params/feature-screen-orientation = “<xsl:value-of select="data/params/feature-screen-orientation" />”</li>
+      </ul>
       <p>
-        <img src="{$root}/image/4/{data/params/feature-maxwidth}/0/1/farm5.staticflickr.com/4107/5001563671_98a40b9606_o.jpg" />
+        <img src="{$root}/image/4/{data/params/feature-breakpoint}/0/1/farm5.staticflickr.com/4107/5001563671_98a40b9606_o.jpg" />
       </p>
     </body>
   </xsl:template>
