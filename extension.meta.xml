@@ -18,7 +18,7 @@
   </authors>
   <releases>
     <release version="0.4" date="2011-12-18">
-      * Added `feature-bandwidth`
+      * Added `feature-breakpoint`
     </release>
     <release version="0.3" date="2011-12-01">
       * Changed `feature-maxwidth` to `feature-screen-max`

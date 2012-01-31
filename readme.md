@@ -36,7 +36,7 @@ With this release the screen dimensions (`integer`, in pixels) and orientation (
 ## Changelog
 
 * 0.4, 18 December 2011
-  * Added `feature-bandwidth`
+  * Added `feature-breakpoint`
 * 0.3, 1 December 2011
   * Changed `feature-maxwidth` to `feature-screen-max`
 	* Added `feature-screen-min`
