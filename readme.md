@@ -24,7 +24,7 @@ For each feature test that has been enabled on System » Preferences, a unique p
 
 ## Usage
 
-1. Import the feature detection utility in to your stylesheet: `<xsl:import href="../utilities/user-agent-feature-detection.xsl" />`
+1. Import the feature detection utility into your stylesheet: `<xsl:import href="../utilities/user-agent-feature-detection.xsl" />`
 2. Call the feature detection utility early in the `<head>` of your HTML: `<xsl:call-template name="user-agent-feature-detection" />`
 3. Define your image breakpoints in `user-agent-feature-detection.xsl` (default `[480, 600, 768, 1024, 1200]`). The array value just larger than `feature-screen-max` will be returned for use with [JIT images](http://symphony-cms.com/learn/concepts/view/jit-image-manipulation/). This restricts the number of sizes of images that are created and cached on your server.
 4. Use the information contained in `/data/params/feature-…` to customize your layout or content. For example, you can use the value of `/data/params/feature-breakpoint` in your [JIT image](http://symphony-cms.com/learn/concepts/view/jit-image-manipulation/) source attribute to create [responsive images](http://unstoppablerobotninja.com/entry/responsive-images/): `<img src="{$root}/image/4/{data/params/feature-breakpoint}/0/1/path/to/image.jpg" />`
