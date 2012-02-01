@@ -11,8 +11,8 @@
         ),
         'description'  => 'The User Agent Feature Detection extension makes information about user agent features available in the param pool for the purposes of responsive web design.',
         'name'         => 'User Agent Feature Detection',
-        'release-date' => '2011-12-18',
-        'version'      => '0.4'
+        'release-date' => '2012-02-01',
+        'version'      => '1.0'
       );
     }
 
