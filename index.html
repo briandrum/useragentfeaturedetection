@@ -1,23 +1,21 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<title>User Agent Feature Detection · Extension for Symphony CMS</title>
-	<style>
+  <meta charset="utf-8" />
+  <title>User Agent Feature Detection · Extension for Symphony CMS</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
     html {
       padding: 0;
       border: 0;
       margin: 0;
-
       background-color: #F1F1F1;
     }
     body {
-      padding: 4em 12em;
+      max-width: 40em;
+      padding: 5%;
       border: 0;
       margin: 0 auto;
-
-      width: 36em;
-
       background-color: #FFFFFF;
       color: #383030;
       font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
@@ -25,10 +23,10 @@
       line-height: 1.5;
     }
     a:link {
-    	color: #B40B51;
+      color: #B40B51;
     }
     a:visited {
-    	color: #5C0629;
+      color: #5C0629;
     }
     h1 {
       font-size: 2em;
@@ -36,7 +34,6 @@
     }
     h2 {
       margin: 1.5em 0 -1.5em;
-
       font-size: 1em;
       font-weight: 600;
     }
@@ -48,7 +45,6 @@
     }
     hgroup h2 {
       margin: 0;
-
       font-size: 1.5em;
       font-weight: 300;
     }
@@ -60,7 +56,7 @@
       margin: 1.5em 0;
     }
     ol {
-    	list-style-type: decimal;
+      list-style-type: decimal;
     }
     ul {
       list-style-type: square;
@@ -70,25 +66,31 @@
       margin: 0;
     }
     .links {
-    	text-align: center;
+      text-align: center;
     }
-	</style>
+    pre {
+      padding: 1em 0;
+      overflow: auto;
+    }
+  </style>
 </head>
 <body>
   <hgroup>
-    <h1>User Agent Feature Detection</h1>
-    <h2>Extension for Symphony CMS</h2>
+    <h1>User&nbsp;Agent Feature&nbsp;Detection</h1>
+    <h2>Extension for Symphony&nbsp;CMS</h2>
   </hgroup>
-  <p class="links"><a href="https://github.com/briandrum/user_agent_feature_detection">Download from the GitHub repository</a> · <a href="http://symphony-cms.com/discuss/thread/81069/">Discuss at the Symphony CMS forum</a></p>
+  <p class="links"><a href="https://github.com/briandrum/user_agent_feature_detection">Download from the GitHub repository</a> · <a href="http://symphony-cms.com/discuss/thread/81069/">Discuss at the Symphony&nbsp;CMS forum</a></p>
   <h2>What is this?</h2>
   <p>The User Agent Feature Detection extension makes information about user agent features available in the param pool for the purposes of responsive web design.</p>
   <h2>How does it work?</h2>
   <p>In a word, cookies. As the page is being created, Symphony checks for the existence of a specially-named cookie and adds that information to the <a href="http://symphony-cms.com/learn/concepts/view/parameters/">param pool</a>. If the cookie does not exist, you can set your page template up to include the feature detection scripts in the &lt;head&gt; of your document. If the cookie does exist, you can use that information to customize your page based on the value.</p>
   <h2>That was kind of vague. Can you be more specific?</h2>
   <p>Sure. The best use case right now is for <a href="http://adactio.com/journal/4997/">mobile-first responsive images</a>, in conjunction with <a href="http://symphony-cms.com/learn/concepts/view/jit-image-manipulation/">JIT Image Manipulation</a>. When enabled, UAFD will give you four new params related to screen resolution: <code>feature_screen_max</code>, <code>feature_screen_min</code>, <code>feature_screen_breakpoint</code>, and <code>feature_screen_orientation</code>. The first two will contain the larger and smaller dimensions of the screen as integers. <code>feature_screen_breakpoint</code> will be explained in greater detail below. <code>feature_screen_orientation</code> contains either “<code>landscape</code>” or “<code>portrait</code>” if available, or “<code>unknown</code>” if not.</p>
-  <p>For the uninitiated, the JIT Image Manipulation extension can crop and/or resize an original image and then cache and return the resulting, modified image – perfect for serving up smaller images by default, and larger versions when a higher-resolution screen has been detected. All that’s needed is a special URL in the src attribute of an img element. For example: <code>&lt;img&nbsp;src="http://example.com/image/4/600/0/1/path/to/image.jpg"&nbsp;/&gt;</code> will return a 600-pixel wide version of image.jpg.</p>
-  <p>Using the value of <code>$feature-screen-max</code> to size the image would create a different version for every unique resolution, so to increase the likelihood of having a cached version ready there is an array of author-defined breakpoints. The next breakpoint larger than <code>$feature-screen-max</code> will be returned in <code>$feature-screen-breakpoint</code>. The default (mobile) size can be configured in Symphony’s Preferences for use when JavaScript is disabled or detection otherwise fails. So the final responsive image URL looks like this:  <code>&lt;img&nbsp;src="http://example.com/image/4/{$feature-screen-breakpoint}/0/1/path/to/image.jpg"&nbsp;/&gt;</code></p>
-  <h2>What is Symphony CMS?</h2>
+  <p>For the uninitiated, the JIT Image Manipulation extension can crop and/or resize an original image and then cache and return the resulting, modified image – perfect for serving up smaller images by default, and larger versions when a higher-resolution screen has been detected. All that’s needed is a special URL in the src attribute of an img element. For example, the following will return a 600-pixel wide version of image.jpg:</p>
+  <pre><code>&lt;img&nbsp;src="http://example.com/image/4/600/0/1/path/to/image.jpg"&nbsp;/&gt;</code></pre>
+  <p>Using the value of <code>$feature-screen-max</code> to size the image would create a different version for every unique resolution, so to increase the likelihood of having a cached version ready there is an array of author-defined breakpoints. The next breakpoint larger than <code>$feature-screen-max</code> will be returned in <code>$feature-screen-breakpoint</code>. The default (mobile) size can be configured in Symphony’s Preferences for use when JavaScript is disabled or detection otherwise fails. So the final responsive image URL looks like this:</p>
+  <pre><code>&lt;img&nbsp;src="http://example.com/image/4/{$feature-screen-breakpoint}/0/1/path/to/image.jpg"&nbsp;/&gt;</code></pre>
+  <h2>What is Symphony&nbsp;CMS?</h2>
   <p>Symphony is an elegant yet powerful open source content management system built on open standards like XML and XSLT. Stop what you’re doing and <a href="http://symphony-cms.com/explore/">learn more about it</a>.</p>
   <h2>Credits</h2>
   <ul>
